@@ -8,11 +8,27 @@
     <title>Document</title>
 </head>
 
+<style>
+    input {
+        width: 10rem;
+        height: 1rem;
+        display: block;
+        margin: 1rem auto;
+    }
+
+    button {
+        width: 5rem;
+        height: 2rem;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+
 <body>
 
-    <form action="https://music.hzbiz.net/login/cellphone" method="get">
+    <form action="https://music.hzbiz.net/login/cellphone" id="login">
         <input type="text" name="phone" placeholder="phone" id="phone">
-        <input type="password" name="password" id="pw">
+        <input type="password" name="password" id="pw" placeholder="pw">
         <button type="submit">提交</button>
     </form>
 
@@ -20,23 +36,33 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
-        // $.ajax({
-        //     type: "GET",
-        //     url: "",
-        //     data: {},
-        //     success: function (res) {
-        //         console.log(res);
-        //     }
-        // })
+        $('#login').on('submit', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('action') + '?e=' + (+new Date());
+            // alert(url);
+            $.ajax({
+                url: url,
+                type: "post",
+                data: $(this).serializeArray(),
+                success: function (res) {
+                    console.log(res);
 
-        // $.ajax({
-        //     type: "GET",
-        //     url: "https://music.hzbiz.net/login/user/detail",
-        //     data: {},
-        //     success: function (re) {
-        //         console.log('Acount' + re);
-        //     }
-        // })
+                    $.ajax({
+                        url: "https://music.hzbiz.net/user/detail",
+                        data: {
+                            uid: user.profile.userId
+                        },
+                        success(res) {
+                            console.log(res);
+                        }
+                    })
+
+                    $.ajax({
+
+                    })
+                }
+            })
+        })
     </script>
 </body>
 
