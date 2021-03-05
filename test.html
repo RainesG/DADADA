@@ -10,7 +10,7 @@
 
 <body>
 
-    <form action="https://music.hzbiz.net/login" method="get">
+    <form action="https://music.hzbiz.net/login/cellphone" method="get">
         <input type="text" name="phone" placeholder="phone" id="phone">
         <input type="password" name="password" id="pw">
         <button type="submit">提交</button>
@@ -20,15 +20,23 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
-        const URL = 'https://music.hzbiz.net/login'
+        // $.ajax({
+        //     type: "GET",
+        //     url: "",
+        //     data: {},
+        //     success: function (res) {
+        //         console.log(res);
+        //     }
+        // })
 
-        function getHotTopic(name) {
-            return axios.get(URL, {
-                param: {
-                    name
-                }
-            });
-        }
+        // $.ajax({
+        //     type: "GET",
+        //     url: "https://music.hzbiz.net/login/user/detail",
+        //     data: {},
+        //     success: function (re) {
+        //         console.log('Acount' + re);
+        //     }
+        // })
     </script>
 </body>
 
