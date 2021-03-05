@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #011e3c;
+    --input: #999;
+    --pac: #fffb00;
+    --border: #0929dc;
+    --border--hover: #4560f7;
+    --border--active: #1436f5;
+    --ghost--green: #24fbff;
+    --ghost--pink: #fe9fcb;
+    --ghost--orange: #fc0;
+    --ghost--red: #f03000;
+    --track--dot: #fafafa;
+    --size: 30px;
+    --width: 300px;
+    --height: 50px;
+    --font: 24px;
+    --speed: 0.25s;
+}
+
+html,
+body {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100vw;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.pac-input {
+    position: relative;
+    overflow: hidden;
+    border: 6px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.1;
+}
+
+.pac-input__wrap {
+    border-radius: 8px;
+    box-shadow: 0 20px 20px -20px #000;
+}
+
+.pac-input>input {
+    border: 0;
+    font-size: var(--font);
+    line-height: var(--font);
+    padding: 6px 45px 6px 12px;
+    letter-spacing: 1px;
+    width: var(--width);
+    height: var(--height);
+    background: var(--input);
+}
+
+.pac-input>input:focus {
+    outline: transparent;
+}
+
+.pac-input__cloak {
+    background-color: var(--input);
+    width: 100%;
+    height: var(--size);
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    -webkit-transform: translate(-24px, -50%);
+    transform: translate(-24px, -50%);
+}
+
+.pac-input__ghost {
+    cursor: pointer;
+    height: var(--size);
+    width: 100%;
+    right: 105%;
+    top: 50%;
+    width: var(--size);
+    border-radius: 100% 100% 0 0;
+    position: absolute;
+    z-index: 1;
+    transform: translate(0, -50%);
+    clip-path: polygon(15% 100%, 0 85%, 0 0, 100% 0, 100% 85%, 85% 100%, 66% 85%, 50% 100%, 30% 85%);
+}
+
+.pac-input__ghost-eyes {
+    height: 6px;
+    width: 20px;
+    position: absolute;
+    top: 8px;
+    left: 5px;
+}
+
+.pac-input__ghost-eyes:before,
+.pac-input__ghost-eyes:after {
+    border-radius: 100%;
+    content: '';
+    height: 6px;
+    width: 6px;
+    background: radial-gradient(circle at 30% 60%, #00f 0, #00f 25%, #fff 25%, #fff 100%);
+    position: absolute;
+}
+
+.pac-input__ghost-eyes:after {
+    left: 8px;
+}
+
+.pac-input__pac {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    height: var(--size);
+    width: var(--size);
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    z-index: 1;
+}
+
+.pac-input__pac--chomping:before {
+    -webkit-animation-name: chomp--1;
+    animation-name: chomp--1;
+}
+
+.pac-input__pac--chomping:after {
+    -webkit-animation-name: chomp--2;
+    animation-name: chomp--2;
+}
+
+.pac-input__pac:before,
+.pac-input__pac:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    border-radius: 100%;
+    border: calc(var(--size) / 2) solid var(--pac);
+    transform-origin: center center;
+    animation-duration: var(--speed);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.pac-input__pac:before {
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.pac-input__pac:after {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    transform: rotate(-90deg);
+}
+
+@keyframes chomp--1 {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-45deg);
+    }
+}
+
+@keyframes chomp--2 {
+
+    0%,
+    100% {
+        transform: rotate(-90deg);
+    }
+
+    50% {
+        transform: rotate(-45deg);
+    }
+}

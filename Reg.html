@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式</title>
+    <link rel="stylesheet" href="./css/reg.css">
+</head>
+
+<body>
+    <div class="INPUT">
+        <input type="text" id="ICP">
+        <span>
+            <button type="button" id="btn">CHECK!</button>
+        </span>
+    </div>
+
+    <textarea name="" id="" cols="50" rows="1"></textarea>
+
+    <script>
+        var btn = document.getElementById('btn');
+
+        function ICPTest() {
+            var re = /[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼川黔滇渝藏陕甘青宁新港澳台]{1}\ICP[证备]{1}[0-9]{4,20}\号\-{0,1}[0-9]{0,5}/ig;
+            var ICP = document.getElementById('ICP');
+            var text = document.getElementsByTagName('textarea')[0];
+            var ICPValue = ICP.value;
+            if (re.test(ICPValue)) {
+                text.innerText = 'Thanks, Your ICP number is ' + ICPValue;
+            } else {
+                text.innerText = ICP.value + ' isn\'t a ICP number!';
+            }
+        }
+
+        btn.onclick = ICPTest
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = -123;
+        var reverse = function (x) {
+            var ans = Math.abs(x).toString()
+            var len = ans.length
+            if (ans[len - 1] == '0') len -= 1
+            var temp = ''
+            for (var i = 0; i < len; i++) {
+                temp += ans[len - 1 - i]
+            }
+            var y = parseInt(temp)
+            if (x < 0) {
+                return y <= Math.pow(2, 31) ? -y : 0;
+            } else {
+                console.log(y);
+                return y < Math.pow(2, 31) ? y : 0;
+            }
+        };
+        reverse(a)
+    </script>
+</body>
+
+</html>

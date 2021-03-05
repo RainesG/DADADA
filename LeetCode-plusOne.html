@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var digits = [0, 0, 2, 0, 3]
+        var plusOne = function (digits) {
+            var c = String(BigInt(digits.join("")) + 1n).split('');
+            var s = digits.length - c.length;
+            for (let index = 0; index < s; index++) {
+                c.unshift('0')
+            }
+            console.log('result' + c);
+            return c;
+        };
+        plusOne(digits)
+    </script>
+</body>
+
+</html>

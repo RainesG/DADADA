@@ -1,0 +1,51 @@
+<html>
+
+<head>
+
+    <style>
+        .ui-state-hover {
+            border: 1px solid red;
+            user-select: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+    </ul>
+
+    <script src="./jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="./jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script language="javascript">
+        $(document).ready(function () {
+
+            var droppable_options = {
+                hoverClass: "ui-state-hover",
+                drop: function (event, ui) {
+                    var x = ui.draggable
+                    var y = $(this)
+
+                    // x.remove()
+                    x.insertAfter(y)
+                    // x.draggable({
+                        // revert: true
+                    // })
+                }
+            }
+
+
+            $("li").draggable({
+                revert: true
+            })
+            $("li").droppable(droppable_options)
+        });
+    </script>
+
+</body>
+
+</html>

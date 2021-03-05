@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="keyword" value="">
+
+    <ul id="newsList">
+
+    </ul>
+    <script>
+        var list = [{
+            title: "处薪人爻承同非说总王后，战要不一，胜雷丰。"
+        }, {
+            title: "天司斯与入应遗中，县不。"
+        }, {
+            title: " 十位以文。"
+        }, {
+            title: "尝韩怒，大国侯才自的他文婵量文的，订耳在药张牛中攻完欲今春，让自。"
+        }, {
+            title: '郭我皇谋九新王兄担在只所人为，自能来君国下心秦入，那了是，而。'
+        }, {
+            title: "冈天令"
+        }, {
+            title: "作召者的反台洪云云一法君啊评不颜解由区，道同决自训的竟才死的章谋。"
+        }];
+
+        function Demo() {
+            var newsList = document.getElementById('newsList')
+            list.forEach(function (item) {
+                var li = document.createElement('li');
+                var text = document.createTextNode(item.title)
+                li.appendChild(text)
+                newsList.appendChild(li)
+            })
+            document.getElementById('keyword').oninput = function () {
+                newsList.innerHTML = ''
+                var reg = new RegExp(this.value, 'ig')
+                // if(reg.test('423yyx219432342yyx219111')){
+                //     alert(1)
+                // }
+
+                // console.log(reg.exec('yyx219jyyx219')); // []
+                // var str = "人是yyx219在么下关人过第人，yyx219遗快有，让生掉下她reg恶属洪当哉，yyx219德落派因俭生。";
+                // console.log(str.match(reg));
+
+                let newlist = list.filter(function (item, index) {
+                    return item.title.match(reg)
+                })
+
+                newlist.forEach(function (item) {
+                    var li = document.createElement('li');
+                    var text = document.createTextNode(item.title)
+                    li.appendChild(text)
+                    newsList.appendChild(li)
+                })
+                console.log(newlist);
+            }
+        }
+
+        var INPUT = document.getElementById('keyword')
+        INPUT.onfocus = Demo()
+    </script>
+
+
+    <!-- // 京ICP证030173号-2
+    // 京ICP证110507号-33
+    // 浙ICP备17041880号-6 -->
+</body>
+
+</html>

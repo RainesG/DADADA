@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽</title>
+</head>
+<style>
+    .content {
+        position: relative;
+        width: 800px;
+        height: 600px;
+        margin: 0 auto;
+        background-color: #888;
+    }
+
+    .ball {
+        position: absolute;
+        left: 350px;
+        top: 250px;
+        background-color: brown;
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        border: none;
+        box-sizing: border-box;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <div class="ball"></div>
+    </div>
+
+    <script>
+        var ball = document.getElementsByClassName('ball')[0];
+        var content = document.getElementsByClassName('content')[0];
+
+        ball.onmousedown = function () {
+            document.onmousemove = function (event) {
+                // console.log(event.screenX);
+                var l = event.clientX - content.offsetLeft;
+                var t = event.clientY - content.offsetTop;
+                var r = content.offsetWidth - ball.offsetWidth;
+                var b = content.offsetHeight - ball.offsetHeight;
+                console.log(ball.offsetLeft);
+                if (l < 150) { //l < 50 时为正常拖拽，l小于的值大于50时为自动吸附，以下同理
+                    l = 50;
+                }
+                if (t < 150) {
+                    t = 50;
+                }
+                if (l > r - 50) {
+                    l = r + 50;
+                }
+                if (t > b - 50) {
+                    t = b + 50;
+                }
+
+                ball.style.left = l - 50 + 'px';
+                ball.style.top = t - 50 + 'px';
+            }
+
+            ball.onmouseup = function () {
+                document.onmousedown = null;
+                document.onmousemove = null;
+            }
+            return false;
+        }
+
+        function getViewport() {
+            return {
+                width: document.body.clientWidth,
+                height: document.body.clientHeight
+            }
+        }
+
+        // console.log(getViewport());
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Scroller</title>
+  <link rel="stylesheet" href="./css/image-scroller.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title1">Porsche</h1>
+
+    <svg viewBox="0 0 100 100">
+      <mask id="myMask"></mask>
+
+      <image class="image" x=0 y=0 width="100%" height="100%" href="./images/porsche-911.webp"
+        preserveAspectRatio="xMidYMid slice" mask="url(#myMask)" />
+    </svg>
+
+    <h1 class="title2">911</h1>
+
+    <script src="./GSAP-3.0.5/dist/gsap.min.js"></script>
+    <script src="./scripts/image-scroller.js"></script>
+  </div>
+</body>
+
+</html>

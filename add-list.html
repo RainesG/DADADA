@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加留言列表</title>
+</head>
+<style>
+    .message {
+        margin-top: 100px;
+    }
+
+    #textInput {
+        display: block;
+        width: 400px;
+        height: 60px;
+        margin: 10px auto;
+    }
+
+    input {
+        width: 400px;
+        height: 40px;
+        border: none;
+        font-size: 22px;
+        display: block;
+        margin: 0 auto;
+        outline: none;
+    }
+
+    input:active {
+        background-color: #888;
+    }
+
+    ul {
+        padding: 0;
+        width: 400px;
+        margin: 0 auto;
+        border: 1px solid aquamarine;
+    }
+
+    li {
+        list-style: none;
+        border-bottom: 1px solid slateblue;
+        /* min-height: 40px; */
+        font-size: 20px;
+        line-height: 40px;
+        text-indent: 2em;
+        background-color: burlywood;
+        margin: 5px 0;
+        opacity: 0;
+    }
+</style>
+
+<body>
+    <div class="message">
+        <textarea name="" id="textInput"></textarea>
+        <input type="button" name="" id="btn" value="发布">
+        <ul id="ul"></ul>
+    </div>
+
+    <script>
+        var btn = document.getElementById('btn');
+        var list = document.getElementById('ul');
+        var txt = document.getElementById('textInput');
+
+        btn.onclick = function () {
+            var Lli = document.createElement('li');
+            Lli.innerHTML = txt.value;
+            txt.value = '';
+            Lli.style.height = 0;
+            if (ul.children.length > 0) {
+                ul.insertBefore(Lli, ul.children[0])
+            } else {
+                ul.appendChild(Lli);
+            }
+            // console.log(txt.value);
+
+            function animate(obj, stopHeight, stopOpacity) {
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function () {
+                    var startHeight = obj.offsetHeight;
+                    var startOpacity = obj.style.opacity;
+                    var stepHeight = (stopHeight - startHeight) / 10;
+                    var stepOpacity = 1 / 10;
+                    stepHeight = stepHeight > 0 ? Math.ceil(stepHeight) : Math.floor(stepHeight);
+                    if (startHeight != stopHeight) {
+                        obj.style.height = obj.offsetHeight + stepHeight + "px";
+                    } else {
+                        clearInterval(obj.timer);
+                    }
+
+                    if (startOpacity != stopOpacity) {
+                        startOpacity += 0.1;
+                        obj.style.opacity = startOpacity;
+                        console.log('opacity:' + obj.style.opacity);
+                    }
+                    console.log(Lli.style.opacity);
+                }, 10)
+            }
+
+            animate(Lli, 40, 1);
+        }
+    </script>
+</body>
+
+</html>

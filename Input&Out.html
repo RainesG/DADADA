@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input&Out</title>
+    <style>
+        button,
+        input,
+        textarea {
+            display: block;
+            height: 30px;
+            margin: 0 auto;
+            border-radius: 1rem;
+            border: none;
+            outline: none;
+            font-size: 20px;
+            line-height: 20px;
+        }
+
+        input {
+            border: 1px solid orangered;
+            margin-top: 20px;
+            text-indent: 1em;
+        }
+
+        textarea {
+            border: 1px solid #996633;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <button>提交</button>
+    <input type="text" placeholder="请输入文字">
+    <textarea rows="1" cols="40"></textarea>
+
+    <script>
+        var btn = document.getElementsByTagName('button')[0];
+        var Input = document.getElementsByTagName('input')[0];
+        var output = document.getElementsByTagName('textarea')[0];
+
+        btn.onclick = function () {
+            btn.innerText = '输入成功';
+            btn.style.color = '#336699';
+            output.innerText = Input.value;
+        }
+    </script>
+</body>
+
+</html>

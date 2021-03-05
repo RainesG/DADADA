@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #date {
+        background-color: #494949;
+        width: 1200px;
+        height: 100px;
+        margin: 0 auto;
+        padding: 50px 0;
+        padding-bottom: 100px;
+        font-size: 100px;
+    }
+
+    span {
+        font-size: 50px;
+        line-height: 40px;
+        font-weight: bolder;
+        color: #336699;
+        margin: 0 10px;
+    }
+
+    #date>span {
+        font-size: 40px;
+        display: block;
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    #date>div {
+        display: flex;
+        width: 800px;
+        margin: 0 auto;
+    }
+
+    img {
+        height: 50px;
+        position: absolute;
+    }
+
+    .image {
+        height: 50px;
+        width: 45px;
+        overflow: hidden;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+</style>
+
+<body>
+    <div id="date">
+        <span>距2020年结束还有</span>
+        <div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <!-- <span>:</span> -->
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <!-- <span>:</span> -->
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <span>:</span>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <span>:</span>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <span>:</span>
+            <div class="image"><img src="" alt="" class="sec"></div>
+            <div class="image"><img src="" alt="" class="sec"></div>
+        </div>
+
+    </div>
+    <script>
+        console.time("timer")
+
+        function timer() {
+            var oDate = new Date();
+            var date = document.getElementById('date');
+            // var time = oDate.getFullYear() + '/' + (oDate.getMonth() + 1) + '/' + oDate.getDate()
+            //     + ' ' + oDate.getHours() + '：' + oDate.getMinutes() + '：' + oDate.getSeconds();
+
+            var now = oDate.getTime();
+            var str = "2021/1/1 00:00:00";
+            var endDate = new Date(str);
+            var end = endDate.getTime();
+            var leftTime = end - now;
+
+            var d, h, m, s;
+            if (leftTime >= 0) {
+                d = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+                h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
+                m = Math.floor(leftTime / 1000 / 60 % 60);
+                s = Math.floor(leftTime / 1000 % 60);
+            }
+
+            // date.innerHTML = time;
+            var sec = document.getElementsByClassName('sec');
+
+            // var yearNum0 = parseInt(oDate.getFullYear() / 1000);
+            // var yearNum1 = parseInt(oDate.getFullYear()/100) % 10;
+            // var yearNum2 = oDate.getFullYear()/10 % 100;
+            // var yearNum3 = oDate.getFullYear() % 10;
+            // var monthNum2 = parseInt(oDate.getMonth() / 10);
+            // var monthNum3 = oDate.getMonth() % 10;
+            var dateNum4 = parseInt(d / 10);
+            var dateNum5 = d % 10;
+            var hourNum6 = parseInt(h / 10);
+            var hourNum7 = h % 10;
+            var minNum8 = parseInt(m / 10);
+            var minNum9 = m % 10;
+            var secNum10 = parseInt(s / 10);
+            var secNum11 = s % 10;
+
+            // sec[0].src = images[yearNum0]
+            // sec[1].src = images[yearNum1]
+            // sec[2].src = images[yearNum2]
+            // sec[3].src = images[yearNum3]
+            // sec[4].src = images[monthNum2]
+            // sec[5].src = images[monthNum3]
+
+            sec[6].src = images[dateNum4]
+            sec[7].src = images[dateNum5]
+            sec[8].src = images[hourNum6]
+            sec[9].src = images[hourNum7]
+            sec[10].src = images[minNum8]
+            sec[11].src = images[minNum9]
+            sec[12].src = images[secNum10]
+            sec[13].src = images[secNum11]
+        }
+        console.timeEnd("timer")
+
+        setInterval(timer, 1000);
+
+        var images = ['images/0.png', 'images/1.png', 'images/2.png', 'images/3.png', 'images/4.png', 'images/5.png',
+            'images/6.png', 'images/7.png', 'images/8.png', 'images/9.png'
+        ]
+    </script>
+</body>
+
+</html>

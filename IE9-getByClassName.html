@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IE9以下根据类名获取元素</title>
+</head>
+
+<style>
+    .test {
+        width: 300px;
+        margin: 20px auto;
+        font-size: 50px;
+        padding: 50px;
+    }
+
+    .t {
+        width: 200px;
+        margin: 20px auto;
+        font-size: 50px;
+        padding: 50px;
+        background-color: brown;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="test">
+        <span>I'm a TEST!</span>
+    </div>
+    <div class="test">
+        <span>I'm a TEST!</span>
+    </div>
+    <div class="t">
+        <span>I'm a TEST!</span>
+    </div>
+    <div class="test">
+        <span>I'm a TEST!</span>
+    </div>
+    <div class="test">
+        <span>I'm a TEST!</span>
+    </div>
+
+    <script>
+        function getBroswer(cn) {
+            var Sys = {};
+            var ua = navigator.userAgent.toLowerCase();
+            var s;
+            (s = ua.match(/edge\/([\d.]+)/)) ? Sys.edge = s[1]:
+                (s = ua.match(/rv:([\d.]+)\) like gecko/)) ? Sys.ie = s[1] :
+                (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+                (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+                (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+                (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+                (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+
+            console.log('chrome:' + (s = ua.match(/chrome\/([\d.]+)/)));
+            console.log('ie:' + (s = ua.match(/msie ([\d.]+)/)));
+            console.log('Sys.chrome:' + Sys.chrome);
+            console.log('s:' + s);
+
+            if (Sys.edge) return {
+                broswer: "Edge",
+                version: Sys.edge
+            };
+            if (Sys.ie) {
+                var ieTest = document.getElementsByTagName('*');
+                for (var index = 0; index < ieTest.length; index++) {
+                    if (ieTest[index].className == cn) {
+                        ieTest[index].style.backgroundColor = 'red';
+                        ieTest[index].innerHTML = '请使用安全的浏览器';
+                    }
+                }
+                return {
+                    broswer: "IE",
+                    version: Sys.ie
+                };
+            }
+            if (Sys.firefox) return {
+                broswer: "Firefox",
+                version: Sys.firefox
+            };
+            if (Sys.chrome) {
+                var chrome = document.getElementsByClassName(cn);
+                for (var index = 0; index < chrome.length; index++) {
+                    chrome[index].style.backgroundColor = '#336699';
+                }
+                return {
+                    broswer: "Chrome",
+                    version: Sys.chrome
+                };
+            }
+            if (Sys.opera) return {
+                broswer: "Opera",
+                version: Sys.opera
+            };
+            if (Sys.safari) return {
+                broswer: "Safari",
+                version: Sys.safari
+            };
+
+            return {
+                broswer: "",
+                version: "0"
+            };
+        }
+
+        var browser = getBroswer('test');
+    </script>
+</body>
+
+</html>

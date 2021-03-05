@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链表</title>
+</head>
+
+<body>
+
+    <script>
+        const Node = function (element) {
+            this.element = Element;
+            this.next = null;
+        }
+
+        // 获取指定位置的元素
+        function getElementAt(position) {
+            if (position < 0 || position >= this.length) {
+                return null;
+            }
+
+            let currentNode = this.head;
+            for (let index = 0; index < position; index++) {
+                currentNode = currentNode.next;
+            }
+
+            return currentNode;
+        }
+
+        // 链表尾部添加新元素
+        function append(element) {
+            const newNode = new Node(element);
+            if (this.head === null) {
+                this.head = newNode;
+            } else {
+                this.getElementAt(this.length - 1).next = newNode;
+            }
+
+            this.length++;
+        }
+
+        // 在指定位置添加新元素
+        function insert(position, element) {
+            if (position < 0 || position > this.length) {
+                return false;
+            } else {
+                const newNode = new Node(element);
+                if (position === 0) {
+                    newNode.next = this.head;
+                    this.head = newNode;
+                } else {
+                    const prevNode = this.getElementAt(position - 1);
+                    newNode.next = prevNode.next;
+                    prevNode.next = newNode;
+                }
+
+                this.length++;
+                return true;
+            }
+        }
+
+        // 删除指定位置的元素
+        function removeAt(position) {
+            if (position < 0 || position >= this.length) {
+                return null;
+            } else {
+                let delNode;
+                if (position === 0) {
+                    delNode = this.head;
+                    this.head = delNode.next;
+                } else {
+                    const prevNode = this.getElementAt(position - 1);
+                    delNode = prevNode.next;
+                    prevNode.next = delNode.next;
+                }
+            }
+
+            this.length--;
+            return delNode.element;
+        }
+
+        // 查找给定元素的索引
+        function indexOf(element) {
+            let curNode = this.head;
+            for (let i = 0; i < this.length; i++) {
+                if (curNode.element === element) {
+                    return i;
+                    curNode = curNode.next;
+                }
+
+                return -1;
+            }
+        }
+
+        // 删除给定元素
+        function remove(element) {
+            const delIndex = this.indexOf(element);
+            return this.removeAt(delIndex);
+        }
+
+        // 判断链表是否为空
+        function isEmplty() {
+            return this.length === 0;
+        }
+
+        // 返回链表的长度
+        function size() {
+            return this.length;
+        }
+
+        // 返回链表的头结点
+        function getHead() {
+            return this.head;
+        }
+
+        // 清空链表
+        function clear() {
+            this.head = null;
+            this.length = 0;
+        }
+    </script>
+</body>
+
+</html>

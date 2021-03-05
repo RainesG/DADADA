@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "Valencia Regular";
+    src: url("https://assets.codepen.io/489403/ValenciaRegular.otf");
+}
+
+body {
+    margin: 0;
+    background: #141419;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    font-family: "Valencia Regular";
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    max-height: 800px;
+    max-width: 1280px;
+    min-height: 600px;
+    min-width: 1000px;
+}
+
+svg {
+    width: 50%;
+}
+
+h1 {
+    font-family: "Valencia Regular";
+    font-size: 300px;
+    width: 500px;
+    text-align: center;
+    padding: 20px;
+    color: grey;
+    opacity: 0;
+    transform: scale(1, 1) translate(0, 0);
+}
