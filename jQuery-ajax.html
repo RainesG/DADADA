@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    input {
+        width: 20rem;
+        height: 3rem;
+        display: block;
+        margin: 1rem auto;
+        font-size: 2rem;
+        text-indent: 2rem;
+        font-weight: 400;
+    }
+
+    button {
+        width: 5rem;
+        height: 2rem;
+        display: block;
+        margin: 0 auto;
+    }
+
+    main {
+        width: 200px;
+        margin: 0 auto;
+    }
+
+    main img{
+        width: 100%;
+    }
+</style>
+
+<body>
+
+    <form action="https://music.hzbiz.net/login/cellphone" method="GET" id="login">
+        <input type="text" name="phone" placeholder="phone" id="phone">
+        <input type="password" name="password" id="pw" placeholder="pw">
+        <button type="submit">提交</button>
+    </form>
+
+    <main></main>
+
+    <script src="../jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        $('#login').on('submit', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('action') + '?e=' + (+new Date())
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: $(this).serializeArray(),
+                success: function (e) {
+                    console.log(e.profile.avatarUrl);
+                    var avatar = $('<img src="'+e.profile.avatarUrl+'">');
+                    $('main').append(avatar);
+                    $.ajax({
+                        url: 'https://music.hzbiz.net/user/account?e=' + (+new Date()),
+                        type: 'get',
+                        params: $(this).serializeArray(),
+                        success: function (e) {
+                            console.log(e);
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
