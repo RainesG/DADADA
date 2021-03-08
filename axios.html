@@ -21,6 +21,7 @@
 
     button {
         width: 5rem;
+        
         height: 2rem;
         display: block;
         margin: 0 auto;
@@ -34,6 +35,10 @@
     main img {
         width: 100%;
     }
+
+    audio{
+        outline: none;
+    }
 </style>
 
 <body>
@@ -43,6 +48,7 @@
         <input type="password" name="password" id="pw" placeholder="pw">
         <button type="submit">提交</button>
     </form>
+
 
     <main></main>
 
@@ -88,10 +94,8 @@
                                     axios.post(url, params)
                                         .then(res => {
                                             console.log(res.data.data[0].url);
-                                            var player = $('<audio src=' + res.data.data[0]
-                                                .url + '></audio>')
-
-                                                $('main').append(player);
+                                            var player = $('<audio controls><source src = ' + res.data.data[0].url + '/></audio>')
+                                            $('main').append(player);
                                         })
                                         .catch(err => {
                                             console.error(err);
