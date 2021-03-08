@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    input {
+        width: 20rem;
+        height: 3rem;
+        display: block;
+        margin: 1rem auto;
+        font-size: 2rem;
+        text-indent: 2rem;
+        font-weight: 400;
+    }
+
+    button {
+        width: 5rem;
+        height: 2rem;
+        display: block;
+        margin: 0 auto;
+    }
+
+    main {
+        width: 200px;
+        margin: 0 auto;
+    }
+
+    main img {
+        width: 100%;
+    }
+</style>
+
+<body>
+
+    <form action="https://music.hzbiz.net/login/cellphone" method="GET" id="login">
+        <input type="text" name="phone" placeholder="phone" id="phone">
+        <input type="password" name="password" id="pw" placeholder="pw">
+        <button type="submit">提交</button>
+    </form>
+
+    <main></main>
+
+    <script src="../jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        $('#login').on('submit', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('action') + '?e=' + (+new Date());
+            var info = $(this).serializeArray();
+            var params = {
+                phone: info[0].value,
+                password: info[1].value
+            }
+
+            // console.log(params[0].value);
+            axios.post(url, params)
+                .then(res => {
+                    console.log(res);
+                    var avatar = $('<img src="' + res.data.profile.avatarUrl + '">')
+                    $('main').append(avatar);
+
+                    var songListUrl = 'https://music.hzbiz.net/user/playlist';
+                    var uId = {
+                        uid: res.data.profile.userId
+                    };
+                    axios.post(songListUrl, uId)
+                        .then(res => {
+                            console.log(res.data.playlist);
+                            var url = 'https://music.hzbiz.net/playlist/detail';
+                            var params = {
+                                id: res.data.playlist[0].id
+                            };
+                            axios.post(url, params)
+                                .then(res => {
+                                    console.log(res.data.playlist.trackIds[0].id)
+                                    var url = 'https://music.hzbiz.net/song/url';
+                                    var params = {
+                                        id: res.data.playlist.trackIds[0].id
+                                    }
+
+                                    axios.post(url, params)
+                                        .then(res => {
+                                            console.log(res.data.data[0].url);
+                                            var player = $('<audio src=' + res.data.data[0]
+                                                .url + '></audio>')
+
+                                                $('main').append(player);
+                                        })
+                                        .catch(err => {
+                                            console.error(err);
+                                        })
+                                })
+                                .catch(err => {
+                                    console.error(err);
+                                })
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+
+
+        })
+    </script>
+</body>
+
+</html>
