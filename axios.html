@@ -51,7 +51,8 @@
         outline: none;
     }
 
-    ul,li{
+    ul,
+    li {
         list-style: none;
     }
 </style>
@@ -64,6 +65,8 @@
         <button type="submit">提交</button>
     </form>
 
+    <div class="qr"><button type="submit" id="qr">扫码登录</button></div>
+
     <main>
         <ul class="songList">
 
@@ -74,6 +77,39 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
+        $('#qr').on('click', function (e) {
+            // console.log(e);
+            var url = 'https://music.hzbiz.net/login/qr/key?e=' + (new Date());
+            var info = $(this).serializeArray();
+            var params = {};
+
+            // console.log('asd'+info);
+            axios.post(url, params)
+                .then(res => {
+                    console.log(res.data.data.unikey);
+
+                    var url = 'https://music.hzbiz.net/login/qr/create?e=' + (new Date());
+                    var params = {
+                        key: res.data.data.unikey,
+                        qrimg:res.data.data.unikey
+                    };
+
+                    axios.post(url, params)
+                        .then(res => {
+                            console.log(res.data.data.qrurl)
+                            var qr = $('<a href="' + res.data.data.qrurl + '">点击扫码</a>');
+                            $('.qr').append(qr);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+        })
+
+
         $('#login').on('submit', function (e) {
             e.preventDefault();
             var url = $(this).attr('action') + '?e=' + (+new Date());
