@@ -77,9 +77,13 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
+        axios.defaults.baseURL = 'https://music.hzbiz.net/';
+        axios.defaults.withCredentials = true;
+
         $('#qr').on('click', function (e) {
+
             // console.log(e);
-            var url = 'https://music.hzbiz.net/login/qr/key?e=' + (new Date());
+            var url = 'login/qr/key?e=' + (new Date());
             var info = $(this).serializeArray();
             var params = {};
 
@@ -88,21 +92,59 @@
                 .then(res => {
                     console.log(res.data.data.unikey);
 
-                    var url = 'https://music.hzbiz.net/login/qr/create?e=' + (new Date());
+                    // Create Qr Code
+                    var url = 'login/qr/create?e=' + (new Date());
                     var params = {
                         key: res.data.data.unikey,
-                        qrimg:res.data.data.unikey
+                        qrimg: 1
                     };
 
                     axios.post(url, params)
                         .then(res => {
-                            console.log(res.data.data.qrurl)
-                            var qr = $('<a href="' + res.data.data.qrurl + '">点击扫码</a>');
+                            console.log(res.data.data.qrimg)
+                            var qr = $('<img src="' + res.data.data.qrimg + '">');
                             $('.qr').append(qr);
+
                         })
                         .catch(err => {
                             console.error(err);
                         })
+
+                    // check QrScanning status
+                    function checkStatus(res) {
+                        var url = 'login/qr/check?e=' + (new Date());
+                        var params = {
+                            key: res.data.data.unikey
+                        };
+
+                        axios.post(url, params)
+                            .then(res => {
+                                console.log(res.data.code);
+                                if (res.data.code == '803') {
+                                    clearInterval(timeId);
+
+                                    var url = 'login/refresh?e=' + (new Date());
+                                    axios.post(url)
+                                        .then(res => {
+                                            console.log(res)
+                                        })
+                                        .catch(err => {
+                                            console.error(err);
+                                        })
+                                }
+                            })
+                            .catch(err => {
+                                console.error(err);
+                            })
+                    }
+
+                    const timeId = setInterval(() => {
+                        checkStatus(res);
+                        // console.log('turn');
+                    }, 1000);
+                })
+                .catch(err => {
+                    console.error(err);
                 })
                 .catch(err => {
                     console.error(err);
@@ -126,7 +168,7 @@
                     var avatar = $('<img src="' + res.data.profile.avatarUrl + '">')
                     $('main').append(avatar);
 
-                    var songListUrl = 'https://music.hzbiz.net/user/playlist';
+                    var songListUrl = 'user/playlist';
                     var uId = {
                         uid: res.data.profile.userId
                     };
@@ -141,14 +183,14 @@
                                 $('.songList').append(songList);
                             }
 
-                            var url = 'https://music.hzbiz.net/playlist/detail';
+                            var url = 'playlist/detail';
                             var params = {
                                 id: res.data.playlist[0].id
                             };
                             axios.post(url, params)
                                 .then(res => {
                                     console.log(res.data.playlist.trackIds[0].id)
-                                    var url = 'https://music.hzbiz.net/song/url';
+                                    var url = 'song/url';
                                     var params = {
                                         id: res.data.playlist.trackIds[30].id
                                     }
